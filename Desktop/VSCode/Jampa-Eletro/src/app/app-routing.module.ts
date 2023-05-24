@@ -9,7 +9,7 @@ const routes: Routes = [
     component: MantemProdutoComponent
   },
   {
-    path: '/editarusuario:id',
+    path: 'editarproduto/:id',
     component: MantemProdutoComponent
   },
   {

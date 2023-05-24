@@ -20,24 +20,26 @@ export class MantemProdutoComponent {
 
   ngOnInit(): void{
     this.IdProdutoEditar = this.rotaAtual.snapshot.paramMap.get('id')
+    if (this.IdProdutoEditar){
+      this.novoCadastro = false;
+      this.nomeBotaoManutencao = "Salvar"
+    }
   }
 
   constructor(private rotaAtual: ActivatedRoute, private roteador: Router, private produtoService: ProdutoService){
-    this.produtoManutencao = new Produto("",undefined,undefined);
+    this.produtoManutencao = new Produto("",undefined,undefined,undefined);
     const idEditar = this.rotaAtual.snapshot.paramMap.get('id');
     
     if (idEditar){
       this.produtoService.pesquisarPorId(+idEditar).subscribe(
         produto => {
           this.produtoManutencao = produto;
-          this.novoCadastro = false;
-          this.nomeBotaoManutencao = "Salvar"
         }
       )
     }
   }
 
-  manter(): void {
+  inserir(): void {
     if (this.novoCadastro && this.produtoManutencao){
       this.produtoService.inserir(this.produtoManutencao).subscribe(
         produto => {
@@ -52,7 +54,7 @@ export class MantemProdutoComponent {
   atualizar(): void{
     if (this.produtoManutencao){
       this.produtoService.atualizar(this.produtoManutencao).subscribe()
-      this.roteador.navigate(['listagemusuarios'])
+      this.roteador.navigate(['listagemprodutos'])
     }
   }
 }
